@@ -33,7 +33,7 @@ def export_precios_json(output_path: str = "frontend/data/precios.json") -> None
         "codigo_postal": {},
         "municipio": {},
         "provincia": {},
-        "snapshot_date": df["snapshot_date"].max()
+        "snapshot_date": df["snapshot_date"].dropna().max() or ""
     }
 
     for _, row in df.iterrows():
