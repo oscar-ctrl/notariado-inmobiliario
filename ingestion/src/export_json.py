@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import duckdb
 from loguru import logger
@@ -40,6 +41,12 @@ def export_precios_json(output_path: str = "frontend/data/precios.json") -> None
         codigo = str(row["codigo"])
         clase = str(row["clase_finca_urbana_id"])
         precio = row["precio_m2"]
+
+        try:
+            if precio is None or math.isnan(float(precio)):
+                continue
+        except (TypeError, ValueError):
+            continue
 
         if codigo not in output[nivel]:
             output[nivel][codigo] = {}
